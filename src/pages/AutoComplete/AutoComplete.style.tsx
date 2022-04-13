@@ -10,12 +10,13 @@ export const Container = styled.div`
 export const InputContainer = styled.div`
   display: flex;
   justify-content: center;
-  width: 100%;
+  width: 800px;
+  position: relative;
 `;
 
 export const SearchInput = styled.input`
-  width: 600px;
-  padding: 15px 0;
+  width: 100%;
+  padding: 15px 70px;
   background-color: #222326;
   font-size: 24px;
   font-weight: bold;
@@ -23,4 +24,18 @@ export const SearchInput = styled.input`
   border: none;
   border-radius: 10px;
   outline: none;
+`;
+
+export const SearchIcon = styled.span`
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+`;
+
+export const DeleteIcon = styled.span`
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
 `;
