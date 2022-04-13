@@ -1,18 +1,17 @@
 import React from 'react';
-import styled from 'styled-components';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import AutoComplete from './pages/AutoComplete/AutoComplete';
 import GlobalStyle from './styles/GlobalStyle';
 
-const Container = styled.div`
-	background-color: red;
-`;
-
 const App = () => {
-	return (
-		<>
-			<GlobalStyle />
-			<Container>App</Container>
-		</>
-	);
+  return (
+    <BrowserRouter>
+      <GlobalStyle />
+      <Routes>
+        <Route path="/" element={<AutoComplete />} />
+      </Routes>
+    </BrowserRouter>
+  );
 };
 
 export default App;
