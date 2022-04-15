@@ -1,38 +1,40 @@
 {
-	"name": "project_typescript",
-	"version": "1.0.0",
-	"main": "index.js",
-	"license": "MIT",
-	"dependencies": {
-		"@types/styled-components": "^5.1.25",
-		"react": "^17.0.2",
-		"react-dom": "^17.0.2",
-		"react-redux": "^7.2.8",
-		"react-router-dom": "^6.3.0",
-		"redux": "^4.1.2",
-		"styled-components": "^5.3.5",
-		"styled-reset": "^4.3.4"
-	},
-	"scripts": {
-		"start": "webpack serve --mode development --open",
-		"build": "webpack --mode production"
-	},
-	"devDependencies": {
-		"@babel/core": "^7.17.9",
-		"@babel/preset-env": "^7.16.11",
-		"@babel/preset-react": "^7.16.7",
-		"@babel/preset-typescript": "^7.16.7",
-		"@types/react": "^18.0.1",
-		"@types/react-dom": "^18.0.0",
-		"@types/webpack": "^5.28.0",
-		"babel-loader": "^8.2.4",
-		"html-webpack-plugin": "^5.5.0",
-		"prettier": "^2.6.2",
-		"react-icons": "^4.3.1",
-		"ts-loader": "^9.2.8",
-		"typescript": "^4.6.3",
-		"webpack": "^5.72.0",
-		"webpack-cli": "^4.9.2",
-		"webpack-dev-server": "^4.8.1"
-	}
+  "name": "project_typescript",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@types/styled-components": "^5.1.25",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-redux": "^7.2.8",
+    "react-router-dom": "^6.3.0",
+    "redux": "^4.1.2",
+    "styled-components": "^5.3.5",
+    "styled-reset": "^4.3.4"
+  },
+  "scripts": {
+    "start": "webpack serve --mode development --open",
+    "build": "webpack --mode production",
+    "server": "json-server --watch ./public/data/db.json --port 4000"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.9",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "@babel/preset-typescript": "^7.16.7",
+    "@types/react": "^18.0.1",
+    "@types/react-dom": "^18.0.0",
+    "@types/webpack": "^5.28.0",
+    "babel-loader": "^8.2.4",
+    "html-webpack-plugin": "^5.5.0",
+    "json-server": "^0.17.0",
+    "prettier": "^2.6.2",
+    "react-icons": "^4.3.1",
+    "ts-loader": "^9.2.8",
+    "typescript": "^4.6.3",
+    "webpack": "^5.72.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.8.1"
+  }
 }
