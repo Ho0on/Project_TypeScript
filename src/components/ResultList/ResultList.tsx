@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { DataProps, Idata } from '../../types';
 
 export const Container = styled.div`
   border-radius: 10px;
@@ -13,8 +14,14 @@ export const Container = styled.div`
   font-weight: bold;
 `;
 
-const ResultList = () => {
-  return <Container>ResultList</Container>;
+const ResultList = ({ data }: DataProps) => {
+  return (
+    <Container>
+      {data.map(el => {
+        return <div>{el.text}</div>;
+      })}
+    </Container>
+  );
 };
 
 export default ResultList;
