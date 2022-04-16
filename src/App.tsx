@@ -7,14 +7,14 @@ import GlobalStyle from './styles/GlobalStyle';
 
 const App = () => {
   return (
-    // <Provider store={store}>
-    <BrowserRouter>
-      <GlobalStyle />
-      <Routes>
-        <Route path="/" element={<AutoComplete />} />
-      </Routes>
-    </BrowserRouter>
-    // </Provider>
+    <Provider store={store}>
+      <BrowserRouter>
+        <GlobalStyle />
+        <Routes>
+          <Route path="/" element={<AutoComplete />} />
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   );
 };
 

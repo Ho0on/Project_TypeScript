@@ -18,7 +18,7 @@ const ResultList = ({ data }: DataProps) => {
   return (
     <Container>
       {data.map(el => {
-        return <div>{el.text}</div>;
+        return <div key={el.id}>{el.text}</div>;
       })}
     </Container>
   );

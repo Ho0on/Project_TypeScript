@@ -5,8 +5,14 @@ import { IoCloseCircle } from 'react-icons/io5';
 import ResultList from '../../components/ResultList/ResultList';
 import axios from 'axios';
 import { Idata } from '../../types';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../redux/reducers';
+import { openList } from '../../redux/actions/resultList';
 
 const AutoComplete = () => {
+  const dispatch = useDispatch();
+  const isListOpen = useSelector((state: RootState) => state.resultList);
+  console.log(isListOpen);
   const [data, setData] = useState<Idata[]>();
 
   useEffect(() => {
@@ -17,8 +23,12 @@ const AutoComplete = () => {
     getData();
   }, []);
 
+  const showList = () => {
+    dispatch(openList());
+  };
+
   return (
-    <S.Container>
+    <S.Container onClick={() => showList()}>
       <S.InputContainer>
         <S.SearchInput type="text" />
         <S.SearchIcon>
@@ -28,7 +38,7 @@ const AutoComplete = () => {
           <IoCloseCircle color="#85878A" size="30" />
         </S.DeleteIcon>
       </S.InputContainer>
-      {data && <ResultList data={data} />}
+      {isListOpen && data && <ResultList data={data} />}
     </S.Container>
   );
 };
