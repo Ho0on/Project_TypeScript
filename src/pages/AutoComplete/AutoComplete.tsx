@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import * as S from './AutoComplete.style';
 import { BiSearch } from 'react-icons/bi';
 import { IoCloseCircle } from 'react-icons/io5';
@@ -7,13 +7,13 @@ import axios from 'axios';
 import { Idata } from '../../types';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/reducers';
-import { openList } from '../../redux/actions/resultList';
+import { closeList, openList } from '../../redux/actions/resultList';
 
 const AutoComplete = () => {
+  const [searchInput, setSearchInput] = useState<string>('');
+  const [data, setData] = useState<Idata[]>();
   const dispatch = useDispatch();
   const isListOpen = useSelector((state: RootState) => state.resultList);
-  console.log(isListOpen);
-  const [data, setData] = useState<Idata[]>();
 
   useEffect(() => {
     const getData = async () => {
@@ -23,18 +23,32 @@ const AutoComplete = () => {
     getData();
   }, []);
 
+  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchInput(e.target.value);
+  };
+
   const showList = () => {
     dispatch(openList());
   };
 
+  const resetInput = () => {
+    setSearchInput('');
+    dispatch(closeList());
+  };
+
   return (
-    <S.Container onClick={() => showList()}>
+    <S.Container>
       <S.InputContainer>
-        <S.SearchInput type="text" />
         <S.SearchIcon>
           <BiSearch color="#85878A" size="30" />
         </S.SearchIcon>
-        <S.DeleteIcon>
+        <S.SearchInput
+          type="text"
+          onClick={() => showList()}
+          onChange={handleInput}
+          value={searchInput}
+        />
+        <S.DeleteIcon onClick={() => resetInput()}>
           <IoCloseCircle color="#85878A" size="30" />
         </S.DeleteIcon>
       </S.InputContainer>
