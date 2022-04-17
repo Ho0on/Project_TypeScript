@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import * as S from './AutoComplete.style';
 import { BiSearch } from 'react-icons/bi';
 import { IoCloseCircle } from 'react-icons/io5';
@@ -8,18 +8,29 @@ import { Idata } from '../../types';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/reducers';
 import { closeList, openList } from '../../redux/actions/resultList';
+import {
+  getVideoDataFail,
+  getVideoDataStart,
+  getVideoDataSuccess,
+} from '../../redux/actions/videoData';
 
 const AutoComplete = () => {
   const [searchInput, setSearchInput] = useState<string>('');
-  const [data, setData] = useState<Idata[]>();
   const dispatch = useDispatch();
   const isListOpen = useSelector((state: RootState) => state.resultList);
+  const { loading, data } = useSelector((state: RootState) => state.videoData);
+
+  const getData = useCallback(async () => {
+    try {
+      dispatch(getVideoDataStart());
+      const result = await axios.get('http://localhost:4000/data');
+      dispatch(getVideoDataSuccess(result.data));
+    } catch (error) {
+      dispatch(getVideoDataFail(error));
+    }
+  }, [dispatch]);
 
   useEffect(() => {
-    const getData = async () => {
-      const result = await axios.get('http://localhost:4000/data');
-      setData(result.data);
-    };
     getData();
   }, []);
 
@@ -52,7 +63,7 @@ const AutoComplete = () => {
           <IoCloseCircle color="#85878A" size="30" />
         </S.DeleteIcon>
       </S.InputContainer>
-      {isListOpen && data && <ResultList data={data} />}
+      {isListOpen && !loading && <ResultList data={data} />}
     </S.Container>
   );
 };

@@ -1,9 +1,15 @@
-import { ToggleListAction } from './../actions/resultList';
-import { OPEN_LIST, CLOSE_LIST } from './../actions/types';
+import {
+  OPEN_LIST,
+  CLOSE_LIST,
+  ToggleListActionType,
+} from './../actions/types';
 
 const initialState = false;
 
-const reducer = (previousState = initialState, action: ToggleListAction) => {
+const reducer = (
+  previousState = initialState,
+  action: ToggleListActionType
+) => {
   switch (action.type) {
     case OPEN_LIST:
       return true;
