@@ -19,6 +19,7 @@ const AutoComplete = () => {
   const dispatch = useDispatch();
   const isListOpen = useSelector((state: RootState) => state.resultList);
   const { loading, data } = useSelector((state: RootState) => state.videoData);
+  const currentIdx = useSelector((state: RootState) => state.focusItem);
 
   const getData = useCallback(async () => {
     try {

@@ -12,10 +12,10 @@ export const ListContainer = styled.ul`
   box-sizing: border-box;
 `;
 
-export const ListItem = styled.li`
+export const ListItem = styled.li<{ isFocus: boolean }>`
   padding: 20px;
   border-radius: 10px;
-  background-color: #333436;
+  background-color: ${props => (props.isFocus ? '#333436' : '#222326')};
   margin-bottom: 10px;
 
   &:last-child {
