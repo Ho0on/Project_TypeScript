@@ -2,31 +2,32 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
-  margin-top: 200px;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
 `;
 
 export const InputContainer = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
-  width: 800px;
+  width: 1000px;
+  margin-top: 200px;
   padding: 10px 15px;
   border-radius: 10px;
   background-color: #222326;
+  box-sizing: border-box;
 `;
 
 export const SearchInput = styled.input`
-  background-color: #222326;
-  margin: 0 10px;
   width: 100%;
-  font-size: 24px;
-  font-weight: bold;
-  color: white;
+  margin: 0 10px;
   border: none;
   outline: none;
+  background-color: #222326;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
 `;
 
 export const SearchIcon = styled.span`

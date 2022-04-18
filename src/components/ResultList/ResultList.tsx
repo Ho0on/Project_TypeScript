@@ -1,26 +1,16 @@
-import React from 'react';
-import styled from 'styled-components';
-import { DataProps, Idata } from '../../types';
-
-export const Container = styled.div`
-  border-radius: 10px;
-  width: 800px;
-  margin-top: 10px;
-  padding: 20px;
-  box-sizing: border-box;
-  background-color: #222326;
-  color: white;
-  font-size: 20px;
-  font-weight: bold;
-`;
+import React, { useRef } from 'react';
+import * as S from './ResultList.style';
+import { DataProps } from '../../types';
 
 const ResultList = ({ data }: DataProps) => {
+  const focusRef = useRef<HTMLUListElement>(null);
+
   return (
-    <Container>
-      {data.map(el => {
-        return <div key={el.id}>{el.text}</div>;
+    <S.ListContainer ref={focusRef}>
+      {data.map(item => {
+        return <S.ListItem key={item.id}>{item.text}</S.ListItem>;
       })}
-    </Container>
+    </S.ListContainer>
   );
 };
 
