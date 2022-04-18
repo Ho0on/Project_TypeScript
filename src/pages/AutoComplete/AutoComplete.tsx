@@ -13,12 +13,14 @@ import {
   getVideoDataStart,
   getVideoDataSuccess,
 } from '../../redux/actions/videoData';
+import { setCurrentIndex } from '../../redux/actions/focusItem';
 
 const AutoComplete = () => {
   const [searchInput, setSearchInput] = useState<string>('');
+  const [listItemCount, setListItemCount] = useState<number>(0);
+
   const dispatch = useDispatch();
   const isListOpen = useSelector((state: RootState) => state.resultList);
-  const { loading, data } = useSelector((state: RootState) => state.videoData);
   const currentIdx = useSelector((state: RootState) => state.focusItem);
 
   const getData = useCallback(async () => {
@@ -48,6 +50,27 @@ const AutoComplete = () => {
     dispatch(closeList());
   };
 
+  const handleKeyArrow = (e: React.KeyboardEvent) => {
+    // if (data.length > 0) {
+    switch (e.key) {
+      case 'ArrowDown':
+        dispatch(setCurrentIndex(currentIdx + 1));
+        // if (focusRef.current?.childElementCount === currentIdx + 1) dispatch(setCurrentIndex(1));
+        break;
+
+      case 'ArrowUp':
+        if (currentIdx < 1) break;
+
+        dispatch(setCurrentIndex(currentIdx - 1));
+        break;
+
+      case 'Escape':
+        dispatch(closeList());
+        break;
+    }
+    // }
+  };
+
   return (
     <S.Container>
       <S.InputContainer>
@@ -58,13 +81,14 @@ const AutoComplete = () => {
           type="text"
           onClick={() => showList()}
           onChange={handleInput}
+          onKeyDown={handleKeyArrow}
           value={searchInput}
         />
         <S.DeleteIcon onClick={() => resetInput()}>
           <IoCloseCircle color="#85878A" size="30" />
         </S.DeleteIcon>
       </S.InputContainer>
-      {isListOpen && !loading && <ResultList data={data} />}
+      {isListOpen && <ResultList />}
     </S.Container>
   );
 };
