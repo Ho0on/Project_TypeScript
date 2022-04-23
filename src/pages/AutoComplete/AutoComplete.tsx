@@ -17,11 +17,15 @@ import { setCurrentIndex } from '../../redux/actions/focusItem';
 
 const AutoComplete = () => {
   const [searchInput, setSearchInput] = useState<string>('');
+  const [filteredData, setFilteredData] = useState<Idata[]>([]);
   const [listItemCount, setListItemCount] = useState<number>(0);
 
   const dispatch = useDispatch();
   const isListOpen = useSelector((state: RootState) => state.resultList);
   const currentIdx = useSelector((state: RootState) => state.focusItem);
+  const { loading, data }: { loading: boolean; data: Idata[] } = useSelector(
+    (state: RootState) => state.videoData
+  );
 
   const getData = useCallback(async () => {
     try {
@@ -39,6 +43,7 @@ const AutoComplete = () => {
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);
+    filteringData();
   };
 
   const showList = () => {
@@ -49,6 +54,14 @@ const AutoComplete = () => {
     setSearchInput('');
     dispatch(closeList());
   };
+
+  const filteringData = () => {
+    const newData = data.filter((item: Idata) => {
+      return item.text.includes(searchInput);
+    });
+    setFilteredData(newData);
+  };
+  console.log(filteredData);
 
   const handleKeyArrow = (e: React.KeyboardEvent) => {
     // if (data.length > 0) {

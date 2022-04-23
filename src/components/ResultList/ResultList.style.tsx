@@ -17,12 +17,13 @@ export const ListItem = styled.li<{ isFocus: boolean }>`
   border-radius: 10px;
   background-color: ${props => (props.isFocus ? '#333436' : '#222326')};
   margin-bottom: 10px;
+  cursor: pointer;
 
   &:last-child {
     margin-bottom: 0;
   }
 
   &:hover {
-    background-color: red;
+    background-color: #333436;
   }
 `;
