@@ -6,5 +6,5 @@ export interface Idata {
 }
 
 export interface DataProps {
-  data: Idata[];
+  resultData: Idata[];
 }

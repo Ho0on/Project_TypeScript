@@ -1,41 +1,29 @@
-import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import * as S from './AutoComplete.style';
 import { BiSearch } from 'react-icons/bi';
 import { IoCloseCircle } from 'react-icons/io5';
 import ResultList from '../../components/ResultList/ResultList';
-import axios from 'axios';
 import { Idata } from '../../types';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/reducers';
 import { closeList, openList } from '../../redux/actions/resultList';
-import {
-  getVideoDataFail,
-  getVideoDataStart,
-  getVideoDataSuccess,
-} from '../../redux/actions/videoData';
 import { setCurrentIndex } from '../../redux/actions/focusItem';
+import { getData } from '../../utils/getData';
 
 const AutoComplete = () => {
   const [searchInput, setSearchInput] = useState<string>('');
-  const [filteredData, setFilteredData] = useState<Idata[]>([]);
   const [listItemCount, setListItemCount] = useState<number>(0);
 
   const dispatch = useDispatch();
   const isListOpen = useSelector((state: RootState) => state.resultList);
   const currentIdx = useSelector((state: RootState) => state.focusItem);
-  const { loading, data }: { loading: boolean; data: Idata[] } = useSelector(
+  const { data }: { loading: boolean; data: Idata[] } = useSelector(
     (state: RootState) => state.videoData
   );
 
-  const getData = useCallback(async () => {
-    try {
-      dispatch(getVideoDataStart());
-      const result = await axios.get('http://localhost:4000/data');
-      dispatch(getVideoDataSuccess(result.data));
-    } catch (error) {
-      dispatch(getVideoDataFail(error));
-    }
-  }, [dispatch]);
+  const filteredData = data.filter(item => {
+    return item.text.includes(searchInput);
+  });
 
   useEffect(() => {
     getData();
@@ -43,7 +31,6 @@ const AutoComplete = () => {
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);
-    filteringData();
   };
 
   const showList = () => {
@@ -54,14 +41,6 @@ const AutoComplete = () => {
     setSearchInput('');
     dispatch(closeList());
   };
-
-  const filteringData = () => {
-    const newData = data.filter((item: Idata) => {
-      return item.text.includes(searchInput);
-    });
-    setFilteredData(newData);
-  };
-  console.log(filteredData);
 
   const handleKeyArrow = (e: React.KeyboardEvent) => {
     // if (data.length > 0) {
@@ -101,7 +80,7 @@ const AutoComplete = () => {
           <IoCloseCircle color="#85878A" size="30" />
         </S.DeleteIcon>
       </S.InputContainer>
-      {isListOpen && <ResultList />}
+      {isListOpen && <ResultList resultData={filteredData} />}
     </S.Container>
   );
 };
