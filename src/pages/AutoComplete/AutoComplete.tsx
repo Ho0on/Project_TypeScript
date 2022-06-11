@@ -21,9 +21,7 @@ const AutoComplete = () => {
     (state: RootState) => state.videoData
   );
 
-  const filteredData = data.filter(item => {
-    return item.text.includes(searchInput);
-  });
+  console.log(listItemCount);
 
   useEffect(() => {
     getData();
@@ -42,12 +40,17 @@ const AutoComplete = () => {
     dispatch(closeList());
   };
 
+  const filteredData = data.filter(item => {
+    return item.text.includes(searchInput);
+  });
+
   const handleKeyArrow = (e: React.KeyboardEvent) => {
     // if (data.length > 0) {
     switch (e.key) {
       case 'ArrowDown':
         dispatch(setCurrentIndex(currentIdx + 1));
-        // if (focusRef.current?.childElementCount === currentIdx + 1) dispatch(setCurrentIndex(1));
+        // if (focusRef.current?.childElementCount === currentIdx + 1)
+        dispatch(setCurrentIndex(1));
         break;
 
       case 'ArrowUp':
@@ -80,7 +83,12 @@ const AutoComplete = () => {
           <IoCloseCircle color="#85878A" size="30" />
         </S.DeleteIcon>
       </S.InputContainer>
-      {isListOpen && <ResultList resultData={filteredData} />}
+      {isListOpen && (
+        <ResultList
+          resultData={filteredData}
+          setListItemCount={setListItemCount}
+        />
+      )}
     </S.Container>
   );
 };

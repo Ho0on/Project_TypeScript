@@ -7,4 +7,5 @@ export interface Idata {
 
 export interface DataProps {
   resultData: Idata[];
+  setListItemCount: Dispatch<SetStateAction<number>>;
 }
